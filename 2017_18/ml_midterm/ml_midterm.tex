@@ -1,0 +1,162 @@
+\documentclass[11pt]{article}
+
+\usepackage{tikz} % картинки в tikz
+\usepackage{microtype} % свешивание пунктуации
+
+\usepackage{array} % для столбцов фиксированной ширины
+
+\usepackage{indentfirst} % отступ в первом параграфе
+
+\usepackage{sectsty} % для центрирования названий частей
+\allsectionsfont{\centering}
+
+\usepackage{verbatim}
+\usepackage{amsmath} % куча стандартных математических плюшек
+
+\usepackage[top=1.4cm, left=1cm, right=1cm, bottom=1.5cm]{geometry} % размер текста на странице
+
+\usepackage{lastpage} % чтобы узнать номер последней страницы
+
+\usepackage{enumitem} % дополнительные плюшки для списков
+%  например \begin{enumerate}[resume] позволяет продолжить нумерацию в новом списке
+\usepackage{caption}
+
+
+\usepackage{fancyhdr} % весёлые колонтитулы
+\pagestyle{fancy}
+\lhead{Машинное обучение}
+\chead{}
+\rhead{2018-01-24, зачёт}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+
+\usepackage{todonotes} % для вставки в документ заметок о том, что осталось сделать
+% \todo{Здесь надо коэффициенты исправить}
+% \missingfigure{Здесь будет Последний день Помпеи}
+% \listoftodos --- печатает все поставленные \todo'шки
+
+
+% более красивые таблицы
+\usepackage{booktabs}
+% заповеди из докупентации:
+% 1. Не используйте вертикальные линни
+% 2. Не используйте двойные линии
+% 3. Единицы измерения - в шапку таблицы
+% 4. Не сокращайте .1 вместо 0.1
+% 5. Повторяющееся значение повторяйте, а не говорите "то же"
+
+
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+
+\setmainlanguage{russian}
+\setotherlanguages{english}
+
+% download "Linux Libertine" fonts:
+% http://www.linuxlibertine.org/index.php?id=91&L=1
+\setmainfont{Linux Libertine O} % or Helvetica, Arial, Cambria
+% why do we need \newfontfamily:
+% http://tex.stackexchange.com/questions/91507/
+\newfontfamily{\cyrillicfonttt}{Linux Libertine O}
+
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ} % для списков с русскими буквами
+\setlist[enumerate, 2]{label=\asbuk*),ref=\asbuk*}
+
+%% эконометрические сокращения
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\Corr}{Corr}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\E}{E}
+\def \hb{\hat{\beta}}
+\def \hs{\hat{\sigma}}
+\def \htheta{\hat{\theta}}
+\def \s{\sigma}
+\def \hy{\hat{y}}
+\def \hY{\hat{Y}}
+\def \v1{\vec{1}}
+\def \e{\varepsilon}
+\def \he{\hat{\e}}
+\def \z{z}
+\def \hVar{\widehat{\Var}}
+\def \hCorr{\widehat{\Corr}}
+\def \hCov{\widehat{\Cov}}
+\def \cN{\mathcal{N}}
+
+
+\begin{document}
+
+
+
+
+\begin{enumerate}
+
+  \item Предположим, что $A$ — матрица констант, а $X$ — матрица переменных, найдите $d(XAX)$. Как упростится ответ, если $AX=XA$?
+
+  \item Задана зависимость $y_i = \beta x_i + u_i$, ошибки $u_i$ нормальны $\cN(0;1)$. Исследователь Василий использует следующий способ построения прогнозов: $\hat y_f = \gamma \cdot \hb x_f$, где $\hb$ — это оценка МНК, а $\gamma$ — некоторая константа. При каком $\gamma$ ожидаемый квадрат ошибки прогноза будет минимальным? Как на практике подобрать такое $\gamma$?
+
+  \item Как изменится энтропия дискретной величины $X$, если величину домножить на 20? А если у величины $X$ есть функция плотности?
+
+  \item 
+Постройте классификационное дерево для прогнозирования $y$ с помощью $x$ и $z$ на обучающей выборке:
+
+\begin{tabular}{lrrrrr}
+\toprule
+$x_i$ & $0$ & $0$ & $0$ & $1$ & $1$ \\
+$z_i$ & $1$ & $2$ & $3$ & $4$ & $5$ \\
+$y_i$ & $0$ & $1$ & $1$ & $0$ & $0$ \\
+\bottomrule
+\end{tabular}
+
+Критерий деления узла на два — минимизация индекса Джини. Дерево строится до идеальной классификации.
+
+\item 
+На плоскости расположены колонии рыжих и чёрных муравьёв. Рыжих колоний три и они имеют координаты $(-1, 1)$, $(1, -1)$ и $(1, 1)$. Чёрных колоний одна и она имеет координаты $(0, 0)$.
+
+\begin{enumerate}
+  \item Поделите плоскость на «зоны влияния» рыжих и чёрных используя метод одного и трёх ближайших соседей.
+  
+\item С помощью кросс-валидации с выкидыванием отдельных наблюдений выберите оптимальное число соседей $k$ перебрав $k \in \{1, 3 \}$. Целевой функцией является количество несовпадающих прогнозов.
+\end{enumerate}
+
+\item 
+
+Машин-лёрнер Василий лично раздобыл выборку из четырёх наблюдений.
+
+
+\begin{tabular}{rrrrr}
+\toprule
+$x_i$ & 1 & 2 & 3 & 4 \\
+$y_i$ & 6 & 6 & 12 & 18 \\
+\bottomrule
+\end{tabular}
+
+Два готовых дерева для бустинга Василий подглядел у соседа:
+
+\begin{minipage}{0.4\textwidth}
+\begin{center}
+%\begin{tikzpicture}[scale = 0.025]
+\includegraphics[scale=0.1]{images/two_trees.png}
+%\input{armada.tikz}
+%\end{tikzpicture}
+\end{center}
+\end{minipage}
+
+Василий решил использовать бустинг c темпом обучение $\eta$. Прогнозы в каждом листе конкретного дерева Василий строит минимизируя функцию:
+\[
+	Q = \sum_{i=1}^n (y_i - \hat y_i)^2 + \lambda \sum_{j=1}^T w_j^2,
+\]
+где $y_i$ — прогнозируемое значение для $i$-го наблюдения, $n$ — количество наблюдений, $w_j$ — прогноз в $j$-ом листе, $T$ — количество листов на дереве.
+
+
+Какие прогнозы внутри обучающей выборки получит Василий при $\eta=1$ и $\lambda=0.5$?
+
+
+\end{enumerate}
+
+\end{document}
